@@ -3,30 +3,38 @@
 set -e
 
 generate_docker() {
-  docker run --rm kaczmarj/neurodocker:master generate docker \
+  docker run --rm repronim/neurodocker:0.7.0 generate docker \
     --base=debian:stretch --pkg-manager=apt \
-    --install vim python \
+    --neurodebian \
+          os_codename='stretch' \
+          server='usa-ca' \
+          full=True \
+    --install vim python connectome-workbench \
     --user=root \
     --afni version=latest method=binaries \
     --user=neuro \
     --miniconda \
-          conda_install='python=3.6 matplotlib numpy pandas scikit-learn nilearn scipy seaborn traits' \
+          conda_install='python=3.9 matplotlib numpy pandas scikit-learn nilearn scipy seaborn traits' \
           pip_install='nibabel nipype' \
-          create_env="neuro_py36" \
+          create_env="neuro_py39" \
           activate=true
 }
 
 generate_singularity() {
-  docker run --rm kaczmarj/neurodocker:master generate singularity \
+  docker run --rm repronim/neurodocker:0.7.0 generate singularity \
     --base=debian:stretch --pkg-manager=apt \
-    --install vim python \
+    --neurodebian \
+          os_codename='stretch' \
+          server='usa-ca' \
+          full=True \
+    --install vim python connectome-workbench \
     --user=root \
     --afni version=latest method=binaries \
     --user=neuro \
     --miniconda \
-          conda_install='python=3.6 matplotlib numpy pandas scikit-learn nilearn scipy seaborn traits' \
+          conda_install='python=3.9 matplotlib numpy pandas scikit-learn nilearn scipy seaborn traits' \
           pip_install='nibabel nipype' \
-          create_env="neuro_py36" \
+          create_env="neuro_py39" \
           activate=true
 }
 
